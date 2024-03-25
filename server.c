@@ -1,9 +1,9 @@
 #include "minitalk.h"
 
-void	sig_handler(int sig)
+void sig_handler(int sig)
 {
-	static unsigned char	current_char;
-	static int				i;
+	static unsigned char current_char;
+	static int i;
 
 	current_char |= (sig == SIGUSR1);
 	i++;
@@ -20,12 +20,15 @@ void	sig_handler(int sig)
 		current_char <<= 1;
 }
 
-
-int	main(void)
+int main(void)
 {
 	ft_printf("%d\n", getpid());
-	signal(SIGUSR1, sig_handler);
-	signal(SIGUSR2, sig_handler);
+	struct sigaction sa;
+
+	sa.sa_handler = sig_handler;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
 	return (0);

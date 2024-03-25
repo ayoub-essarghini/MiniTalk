@@ -14,11 +14,11 @@ SRCS_SERVER = ./utils/ft_printf.c  ./utils/ft_putchar.c \
 
 SRCS_CLIENT_BONUS = ./utils/ft_printf.c  ./utils/ft_putchar.c \
 ./utils/ft_putnbr_u.c ./utils/ft_putnbr.c ./utils/ft_putstr.c \
-./utils/ft_strlen.c ./utils/ft_atoi.c ../bonus/client_bonus.c
+./utils/ft_strlen.c ./utils/ft_atoi.c ./bonus/client_bonus.c
 
 SRCS_SERVER_BONUS = ./utils/ft_printf.c  ./utils/ft_putchar.c \
 ./utils/ft_putnbr_u.c ./utils/ft_putnbr.c ./utils/ft_putstr.c \
-./utils/ft_strlen.c ./utils/ft_atoi.c ../bonus/server_bonus.c
+./utils/ft_strlen.c ./utils/ft_atoi.c ./bonus/server_bonus.c
 
 CFLAGS= -Wall -Werror -Wextra -g3 #-fsanitize=address -g3
 OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)

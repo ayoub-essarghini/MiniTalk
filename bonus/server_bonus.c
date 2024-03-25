@@ -1,7 +1,8 @@
 #include "../minitalk.h"
 
-void	handle_signal(int signal, siginfo_t *info)
+void	handle_signal(int signal, siginfo_t *info, void *context)
 {
+	(void)context;
 	static unsigned char	current_char;
 	static int				bit_index;
 
@@ -10,7 +11,10 @@ void	handle_signal(int signal, siginfo_t *info)
 	if (bit_index == 8)
 	{
 		if (current_char == '\0')
+		{
 			ft_printf("\n");
+			kill(info->si_pid, SIGUSR1);
+		}
 		else
 			ft_printf("%c", current_char);
 		bit_index = 0;
@@ -18,10 +22,10 @@ void	handle_signal(int signal, siginfo_t *info)
 	}
 	else
 		current_char <<= 1;
-	if (signal == SIGUSR1)
-		kill(info->si_pid, SIGUSR1);
-	else if (signal == SIGUSR2)
-		kill(info->si_pid, SIGUSR2);
+	// if (signal == SIGUSR1)
+	// 	kill(info->si_pid, SIGUSR1);
+	// else if (signal == SIGUSR2)
+	// 	kill(info->si_pid, SIGUSR2);
 }
 
 
@@ -32,7 +36,7 @@ int	main(void)
 	sa.sa_sigaction = &handle_signal;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
-	printf("%d\n", getpid());
+	ft_printf("%d\n", getpid());
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)

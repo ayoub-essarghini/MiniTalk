@@ -15,7 +15,7 @@ void	transmit_sig(int pid, unsigned char c)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(300);
+		usleep(520);
 	}
 }
 

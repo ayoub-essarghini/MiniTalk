@@ -23,9 +23,8 @@ void	send_signal(int pid, unsigned char c)
 void	handle_response(int rep)
 {
 	if (rep == SIGUSR1)
-		ft_printf("1\n");
-	else if (rep == SIGUSR2)
-		ft_printf("0\n");
+		ft_printf("\033[0;32m message sent successfully !\033[0m\n");
+	
 }
 
 
