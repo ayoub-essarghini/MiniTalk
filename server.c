@@ -1,30 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aes-sarg <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 21:18:00 by aes-sarg          #+#    #+#             */
+/*   Updated: 2024/03/26 21:18:03 by aes-sarg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
-void sig_handler(int sig)
+void	sig_handler(int sig)
 {
-	static unsigned char current_char;
-	static int i;
+	static unsigned char	c;
+	static int				i;
 
-	current_char |= (sig == SIGUSR1);
+	c |= (sig == SIGUSR1);
 	i++;
 	if (i == 8)
 	{
-		if (current_char == '\0')
+		if (c == '\0')
 			ft_printf("\n");
 		else
-			ft_printf("%c", current_char);
+			ft_printf("%c", c);
 		i = 0;
-		current_char = 0;
+		c = 0;
 	}
 	else
-		current_char <<= 1;
+		c <<= 1;
 }
 
-int main(void)
+int	main(void)
 {
-	ft_printf("%d\n", getpid());
-	struct sigaction sa;
+	struct sigaction	sa;
 
+	ft_printf("%d\n", getpid());
 	sa.sa_handler = sig_handler;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGUSR1, &sa, NULL);

@@ -1,11 +1,22 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aes-sarg <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 21:17:01 by aes-sarg          #+#    #+#             */
+/*   Updated: 2024/03/26 21:17:10 by aes-sarg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #ifndef MINITALK_H
 # define MINITALK_H
 
-# include <stdlib.h>
 # include <signal.h>
-# include <string.h>
 # include <stdarg.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/types.h>
 # include <unistd.h>
 
 int	ft_putnbr_u(unsigned int nb);

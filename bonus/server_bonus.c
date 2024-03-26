@@ -1,33 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aes-sarg <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 21:20:35 by aes-sarg          #+#    #+#             */
+/*   Updated: 2024/03/26 21:20:37 by aes-sarg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minitalk.h"
 
 void	handle_signal(int signal, siginfo_t *info, void *context)
 {
-	(void)context;
-	static unsigned char	current_char;
-	static int				bit_index;
+	static unsigned char	c;
+	static int				i;
 
-	current_char |= (signal == SIGUSR1);
-	bit_index++;
-	if (bit_index == 8)
+	(void)context;
+	c |= (signal == SIGUSR1);
+	i++;
+	if (i == 8)
 	{
-		if (current_char == '\0')
+		if (c == '\0')
 		{
 			ft_printf("\n");
 			kill(info->si_pid, SIGUSR1);
 		}
 		else
-			ft_printf("%c", current_char);
-		bit_index = 0;
-		current_char = 0;
+			ft_printf("%c", c);
+		i = 0;
+		c = 0;
 	}
 	else
-		current_char <<= 1;
-	// if (signal == SIGUSR1)
-	// 	kill(info->si_pid, SIGUSR1);
-	// else if (signal == SIGUSR2)
-	// 	kill(info->si_pid, SIGUSR2);
+		c <<= 1;
 }
-
 
 int	main(void)
 {

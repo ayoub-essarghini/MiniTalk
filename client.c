@@ -1,4 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aes-sarg <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 21:18:39 by aes-sarg          #+#    #+#             */
+/*   Updated: 2024/03/26 21:19:07 by aes-sarg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
+
+int	is_running_proc(pid_t pid)
+{
+	return (kill(pid, 0) == 0);
+}
 
 void	transmit_sig(int pid, unsigned char c)
 {
@@ -15,13 +32,13 @@ void	transmit_sig(int pid, unsigned char c)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(520);
+		usleep(600);
 	}
 }
 
 int	main(int ac, char **argv)
 {
-	int		pid;
+	pid_t		pid;
 	const char	*message;
 	int			i;
 
@@ -31,6 +48,11 @@ int	main(int ac, char **argv)
 		exit(0);
 	}
 	pid = ft_atoi(argv[1]);
+	if (!is_running_proc(pid) || pid <= 0)
+	{
+		write(STDERR_FILENO, "Error\n", 6);
+		exit(1);
+	}
 	message = argv[2];
 	i = 0;
 	while (message[i])
